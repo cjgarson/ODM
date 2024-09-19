@@ -48,5 +48,9 @@ RUN bash configure.sh installruntimedepsonly \
   && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
   && bash run.sh --help \
   && bash -c "eval $(python3 /code/opendm/context.py) && python3 -c 'from opensfm import io, pymap'"
+
+# CUDA init failure fix
+RUN apt-get remove -y cuda-libraries-11-2 cuda-cudart-11-2 cuda-compat-11-2 cuda-nvrtc-11-2 cuda-nvtx-11-2
+
 # Entry point
 ENTRYPOINT ["python3", "/code/run.py"]
